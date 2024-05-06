@@ -1,0 +1,63 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class TemperatureTracker {
+    public static void main(String[] args) {
+        ArrayList<String> daysOfWeek = new ArrayList<>();
+        ArrayList<Double> temperatures = new ArrayList<>();
+
+        
+        populateData(daysOfWeek, temperatures);
+
+        
+        Scanner scanner = new Scanner(System.in);
+
+        // Prompt user for input
+        System.out.println("Enter the day of the week (Monday through Sunday) or 'week' to view weekly average:");
+        String userInput = scanner.nextLine().toLowerCase().trim();
+
+        // Display temperatures based on user input
+        if (userInput.equals("week")) {
+            displayWeeklyData(daysOfWeek, temperatures);
+        } else if (daysOfWeek.contains(userInput)) {
+            int index = daysOfWeek.indexOf(userInput);
+            System.out.println("Temperature on " + daysOfWeek.get(index) + ": " + temperatures.get(index));
+        } else {
+            System.out.println("Invalid input. Please enter a valid day of the week or 'week'.");
+        }
+
+        // Close the scanner
+        scanner.close();
+    }
+
+    // Method to populate arrays with day names and corresponding temperatures
+    private static void populateData(ArrayList<String> daysOfWeek, ArrayList<Double> temperatures) {
+        daysOfWeek.add("monday");
+        daysOfWeek.add("tuesday");
+        daysOfWeek.add("wednesday");
+        daysOfWeek.add("thursday");
+        daysOfWeek.add("friday");
+        daysOfWeek.add("saturday");
+        daysOfWeek.add("sunday");
+
+        temperatures.add(22.5);
+        temperatures.add(23.0);
+        temperatures.add(22.8);
+        temperatures.add(24.2);
+        temperatures.add(25.5);
+        temperatures.add(26.1);
+        temperatures.add(25.8);
+    }
+
+    // Method to display weekly data including daily temperatures and weekly average
+    private static void displayWeeklyData(ArrayList<String> daysOfWeek, ArrayList<Double> temperatures) {
+        double weeklySum = 0;
+        System.out.println("Weekly Temperature Data:");
+        for (int i = 0; i < daysOfWeek.size(); i++) {
+            System.out.println(daysOfWeek.get(i) + ": " + temperatures.get(i));
+            weeklySum += temperatures.get(i);
+        }
+        double weeklyAverage = weeklySum / temperatures.size();
+        System.out.println("Weekly Average Temperature: " + weeklyAverage);
+    }
+}
